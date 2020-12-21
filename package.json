@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/zhq950828/first-project/issues"
   },
-  "homepage": "https://github.com/zhq950828/first-project#readme"
+  "homepage": "https://github.com/zhq950828/first-project#readme",
+  "dependencies": {
+    "react": "^17.0.1"
+  }
 }
