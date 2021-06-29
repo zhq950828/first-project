@@ -5,6 +5,8 @@ function pathJoin(relatedPath) {
 }
 
 function pathReslove(relatedPath) {
+    console.log(__dirname, relatedPath);
+    console.log(path.resolve(__dirname, relatedPath));
     return path.resolve(__dirname, relatedPath);
 }
 
