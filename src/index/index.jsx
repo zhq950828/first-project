@@ -2,7 +2,6 @@ import React from "react";
 import "./index.styl";
 import Swiper from "swiper";
 import { LBL } from "@src/common/image";
-console.log(LBL);
 export default class Index extends React.Component {
   constructor(props) {
     super(props);
@@ -10,25 +9,20 @@ export default class Index extends React.Component {
   }
 
   componentDidMount() {
-    this.swiper = new Swiper(".swiper-container", {
-      initialSlide: 0,
-      autoplay: 3000,
-      loop: true,
-      observer: true,
-      observeParents: true,
-      pagination: ".swiper-pagination",
-      autoplayDisableOnInteraction: false,
-      // onTap: function (swiper, event) {
-      //     const url = $(event.target).data('url');
-      //     if (url) {
-      //         Util.report('NEW_CLASS_ROOM_BANNER', CONFIG.REPORT_TYPE.CLICK, {
-      //             classroomid: self.props.classroomId,
-      //             current_time: +new Date()
-      //         });
-      //         location.href = url;
-      //     }
-      // },
-    });
+      const self = this;
+    setTimeout(() => {
+        self.swiper = new Swiper(".swiper-container", {
+            initialSlide: 0,
+            speed: 3000,
+            autoplay: {
+              delay: 3000,
+            },
+            loop: true,
+            pagination: {
+              el: ".swiper-pagination",
+            },
+          });
+    }, 300)
   }
 
   render() {
@@ -41,17 +35,13 @@ export default class Index extends React.Component {
           <div className="swiper-wrapper">
             {LBL.map((image, index) => {
               return (
-                <div
-                  key={image.key}
-                >
-                  <img
-                    src={image.src}
-                  />
+                <div key={image.key} className="swiper-slide">
+                  <img className="swiper-slide-img" src={image.src} />
                 </div>
               );
             })}
           </div>
-          <div className="swiper-pagination"></div>
+          <div className="swiper-pagination" />
         </div>
       </div>
     );
