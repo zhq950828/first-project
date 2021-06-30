@@ -29,7 +29,7 @@ export default class Index extends React.Component {
     return (
       <div className="index">
         <h1>
-          hellow, <span>LBL</span>
+          hello, <span>LBL</span>
         </h1>
         <div className="swiper-container" id="swiper-container">
           <div className="swiper-wrapper">
