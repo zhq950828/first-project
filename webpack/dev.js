@@ -2,11 +2,21 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const webpackConfigBase = require('./base');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const PORT = 8082;
 
 const devConfig = {
     devtool: 'cheap-module-source-map',
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                cache: true,
+                parallel: true,
+                sourceMap: true
+            }),
+        ],
+    },
     plugins: [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development'),
