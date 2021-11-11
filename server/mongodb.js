@@ -23,6 +23,7 @@ mongoose.connect(dbURL);
 // 得到数据库连接句柄
 let dbHandle = mongoose.connection;
 
+// 通过 数据库连接句柄，监听mongoose数据库成功的事件
 dbHandle.on('open', function (err) {
     if (err) {
         console.log('数据库连接失败');

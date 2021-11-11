@@ -1,10 +1,14 @@
 const express = require('express');
 const { translate } = require('./translate');
 const uuidv1 = require('uuid/v1');
-// const { MongoDbAction } = require('./mongodb');
-const { USER, dataTemplate, errorDataTemplate} = require('./common');
+const { MongoDbAction } = require('./mongodb');
+const { USER, dataTemplate, } = require('./common');
+
+// translate(4091, 5);
 
 // const bodyParser = require('body-parser');
+
+console.log('MongoDbAction', MongoDbAction);
 
 const app = express();
 
@@ -41,56 +45,51 @@ app.post('/report', function (req, res, next) {
     console.log('req.body', req.body);
 });
 
-// app.post('/add', function (req, res, next) {
-//     console.log('add', req.method, req.url, req.body);
-//     res.send('ok');
-//     next();
-// }, express.json(), function (req, res) {
-//     console.log('add.body', req.body);
-//     MongoDbAction.insertMany(USER.USER_SCHEMA, {
-//         ...req.body,
-//         id: uuidv1().replace(/-/g, '')
-//     }, (err, data) => {
-//         console.log('callback', err, data);
-//     });
-// });
+app.post('/add', function (req, res, next) {
+    console.log('add', req.method, req.url, req.body);
+    res.send('ok');
+    next();
+}, express.json(), function (req, res) {
+    console.log('add.body', req.body);
+    MongoDbAction.insertMany(USER.USER_SCHEMA, {
+        ...req.body,
+        id: uuidv1().replace(/-/g, '')
+    }, (err, data) => {
+        console.log('callback', err, data);
+    });
+});
 
-// app.get('/get', function (req, res) {
-//     const params = req.query || {};
-//     const {
-//         pageNum = 1,
-//         pageSize = 10,
-//     } = params;
-//     MongoDbAction.count(USER.USER_SCHEMA, {}, (err, total) => {
-//         if (err) {
-//             res.send({
-//                 ...errorDataTemplate,
-//                 msg: err
-//             });
-//             return;
-//         }
-//         MongoDbAction.where(USER.USER_SCHEMA, {}, {
-//             skipCount: (pageNum - 1) * pageSize,
-//             limit: parseInt(pageSize),
-//             sort: {}
-//         }, (err, data) => {
-//             if (err) {
-//                 res.send({
-//                     ...errorDataTemplate,
-//                     msg: err
-//                 });
-//                 return;
-//             }
-//             res.send({
-//                 ...dataTemplate,
-//                 data: {
-//                     list: data
-//                 },
-//                 total,
-//             });
-//         })
-//     })
-// })
+app.get('/get', function (req, res) {
+    const params = req.query || {};
+    console.log('get', params);
+    const {
+        pageNum = 1,
+        pageSize = 10,
+    } = params;
+    MongoDbAction.count(USER.USER_SCHEMA, {}, (err, total) => {
+        if (err) {
+            res.send();
+            return;
+        }
+        MongoDbAction.where(USER.USER_SCHEMA, {}, {
+            skipCount: (pageNum - 1) * pageSize,
+            limit: parseInt(pageSize),
+            sort: {}
+        }, (err, data) => {
+            if (err) {
+                res.send();
+                return;
+            }
+            res.send({
+                ...dataTemplate,
+                data: {
+                    list: data
+                },
+                total,
+            });
+        })
+    })
+})
 
 const server = app.listen(8083, function () {
     var host = server.address().address;

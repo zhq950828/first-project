@@ -27,15 +27,8 @@ const dataTemplate = {
     msg: 'ok'
 }
 
-const errorDataTemplate = {
-    code: 400,
-    data: {},
-    msg: ''
-};
-
 module.exports = {
     USER,
     analyseUrl,
-    dataTemplate,
-    errorDataTemplate
+    dataTemplate
 }
