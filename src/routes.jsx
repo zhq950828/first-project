@@ -4,7 +4,7 @@ import Index from "@src/index/routes";
 import { Route, IndexRedirect } from "react-router";
 import { MonitorJS } from "monitorjs_horse_fpp";
 new MonitorJS().init({
-  url:"http://localhost:8083/a", //错误上报地址
+  url:"http://localhost:8083/report", //错误上报地址
   consoleError: false, //配置是否需要记录console.error错误信息
   ajaxError: true,
   // resourceError: false
@@ -28,7 +28,7 @@ const container = (props) => {
 
     return (
         <div className="container">
-            {props.children}
+            {props.children} 
         </div>
     )
 }
