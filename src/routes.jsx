@@ -28,7 +28,7 @@ const container = (props) => {
 
     return (
         <div className="container">
-            {props.children}
+            {props.children} a
         </div>
     )
 }
